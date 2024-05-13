@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import './App.css'
+import SelectedMovies from './components/SelectedMovies';
+import MovieList from './components/MovieList';
 
 function App() {
 
@@ -26,39 +28,38 @@ function App() {
 
 
   return (
-    <div>
+    <ContentsContainer>
       <Header>Movie List</Header>
 
-
-      <div>
-
+      <MainContainer>
         {/* 봤는 영화 목록 */}
-
+        <SelectedMovies title='봤는 영화 목록'></SelectedMovies>
 
         {/* 영화목록 */}
-
-
+        <Main>
+          <MovieList></MovieList>
+        </Main>
 
         {/* 볼 영화 목록 */}
-
-
-      </div>
-
+        <SelectedMovies title='볼 영화 목록'></SelectedMovies>
+      </MainContainer>
 
       <Footer>Footer</Footer>
-    </div>
+    </ContentsContainer>
   );
 }
 
 // Header와 Footer 공통 스타일
 const commonStyles = `
-  height: fit-content;
+  flex: 1; // 세로 폭 설정
   width: 100%;
   background-color: #333333;
   color: white;
-  padding: 20px 0;
-  text-align: center;
+  padding: 12px 0;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 const Header=styled.h2`
  ${commonStyles}
@@ -66,8 +67,27 @@ const Header=styled.h2`
 const Footer=styled.h2`
   ${commonStyles}
 
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
 `
+
+const MainContainer=styled.div`
+  display: flex;
+  /* height: 100%; */
+  flex: 8; // 세로 폭 설정
+`
+
+const Main=styled.div`
+  height: 100%;
+  flex: 6; // 가로 폭 설정
+  overflow-y: scroll;
+
+`
+const ContentsContainer=styled.div`
+display: flex;
+flex-direction: column;
+height: 100vh;
+`
+
 
 export default App;
