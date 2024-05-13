@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 
-function MovieList(){
+function MovieList({title, id}){
 
     return(
         <MovieContainer>
-            <p>Movie 1</p>
-            <p>Description for Movie 1</p>
+            <p>{title}</p>
+            <p>Description for Movie {id}</p>
 
             <Button>봤는 영화 담기</Button>
             <Button>볼 영화 담기</Button>

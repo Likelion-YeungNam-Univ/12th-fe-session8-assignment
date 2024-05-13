@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import './App.css'
 import SelectedMovies from './components/SelectedMovies';
 import MovieList from './components/MovieList';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [movies, setMovies] = useState([]);
 
 
   const fetchMovies = () => {
@@ -25,24 +27,49 @@ function App() {
     return movies;
   };
 
+  // 1번만 실행
+  useEffect(() => {
+    const fetchedMovies = fetchMovies();
+    setMovies(fetchedMovies);
+  },[])
 
+  
 
   return (
     <ContentsContainer>
       <Header>Movie List</Header>
 
-      <MainContainer>
-        {/* 봤는 영화 목록 */}
-        <SelectedMovies title='봤는 영화 목록'></SelectedMovies>
+      {/* movies배열이 비어있을 때(데이터 완전히 가져오기 전) Loading 띄우기 */}
+      {movies.length ? (
+        <MainContainer>
 
-        {/* 영화목록 */}
-        <Main>
-          <MovieList></MovieList>
-        </Main>
+          {/* 봤는 영화 목록 */}
+          <SelectedMovies title='봤는 영화 목록'></SelectedMovies>
 
-        {/* 볼 영화 목록 */}
-        <SelectedMovies title='볼 영화 목록'></SelectedMovies>
-      </MainContainer>
+          {/* 영화목록 */}
+          <Main>
+              {movies.map((movie)=>
+
+                {
+                  return(
+                    <MovieList id={movie.id} title={movie.title}></MovieList>
+                  )
+                }
+              
+              )}
+          </Main>
+          
+
+          {/* 볼 영화 목록 */}
+          <SelectedMovies title='볼 영화 목록'></SelectedMovies>
+
+        </MainContainer>
+      )
+      :
+      (
+        <Loading>Loading...</Loading>
+      )
+      }
 
       <Footer>Footer</Footer>
     </ContentsContainer>
@@ -88,6 +115,13 @@ display: flex;
 flex-direction: column;
 height: 100vh;
 `
+const Loading=styled.h2`
 
+display: flex;
+align-items: center;
+justify-content: center;
+flex: 8; // 세로 폭 설정
+
+`
 
 export default App;
