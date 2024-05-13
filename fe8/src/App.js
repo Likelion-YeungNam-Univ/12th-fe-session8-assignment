@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [LoadingState, setLoading] = useState(true);
 
 
   const fetchMovies = () => {
@@ -29,8 +30,15 @@ function App() {
 
   // 1번만 실행
   useEffect(() => {
+    // 로딩상태로 시작
+    setLoading(true);
+
+    // fetch함수실행
     const fetchedMovies = fetchMovies();
     setMovies(fetchedMovies);
+
+    // 로딩상태 변경
+    setLoading(false);
   },[])
 
   
@@ -39,8 +47,12 @@ function App() {
     <ContentsContainer>
       <Header>Movie List</Header>
 
-      {/* movies배열이 비어있을 때(데이터 완전히 가져오기 전) Loading 띄우기 */}
-      {movies.length ? (
+      {/* fetchMovies()실행완료 전 Loading 띄우기 */}
+      {LoadingState ? (
+        <Loading>Loading...</Loading>
+      )
+      :
+      (
         <MainContainer>
 
           {/* 봤는 영화 목록 */}
@@ -49,13 +61,11 @@ function App() {
           {/* 영화목록 */}
           <Main>
               {movies.map((movie)=>
-
                 {
                   return(
                     <MovieList id={movie.id} title={movie.title}></MovieList>
                   )
                 }
-              
               )}
           </Main>
           
@@ -64,10 +74,6 @@ function App() {
           <SelectedMovies title='볼 영화 목록'></SelectedMovies>
 
         </MainContainer>
-      )
-      :
-      (
-        <Loading>Loading...</Loading>
       )
       }
 
@@ -93,27 +99,25 @@ const Header=styled.h2`
 `
 const Footer=styled.h2`
   ${commonStyles}
-
   /* position: fixed; */
   bottom: 0;
 `
 
 const MainContainer=styled.div`
   display: flex;
-  /* height: 100%; */
-  flex: 8; // 세로 폭 설정
+  height: 80%;
+  /* flex: 8; // 세로 폭 설정 */
 `
 
 const Main=styled.div`
   height: 100%;
   flex: 6; // 가로 폭 설정
   overflow-y: scroll;
-
 `
 const ContentsContainer=styled.div`
-display: flex;
-flex-direction: column;
-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 `
 const Loading=styled.h2`
 
