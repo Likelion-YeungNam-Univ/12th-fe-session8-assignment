@@ -62,11 +62,15 @@ function App() {
 
   // 볼 영화 담기 함수
   const wishMovie = (deleteId)=> {
-    
+    const newMovies = movies.filter(movie => movie.id !== deleteId);
+    const newWishMv = movies.filter(movie => movie.id === deleteId);
+
+    setMovies(newMovies);
+    setWishMv([...wishMv, ...newWishMv]);
   }
 
-  // 삭제 함수
-  const deleteMovie = (deleteId) => {
+  // 봤는 영화 삭제 함수
+  const deleteWatchMovie = (deleteId) => {
 
     // 삭제영화
     const deleteMovies = watchedMv.filter(watchedMv => watchedMv.id === deleteId);
@@ -74,6 +78,21 @@ function App() {
     const newWatchedMv = watchedMv.filter(watchedMv => watchedMv.id !== deleteId);
 
     setWatchedMv([...newWatchedMv]);
+
+    // 영화목록 업데이트 후 정렬
+    const updateMovies = [...movies, ...deleteMovies];
+    updateMovies.sort((a, b) => a.id - b.id); //a.id < b.id 일때 a가 b보다 먼저 옴
+    setMovies(updateMovies); 
+  }
+  // 볼 영화 삭제 함수
+  const deletWishMovie = (deleteId) => {
+
+    // 삭제영화
+    const deleteMovies = wishMv.filter(wishMv => wishMv.id === deleteId);
+    // 봤는 영화목록
+    const newWishMv = wishMv.filter(wishMv => wishMv.id !== deleteId);
+
+    setWishMv([...newWishMv]);
 
     // 영화목록 업데이트 후 정렬
     const updateMovies = [...movies, ...deleteMovies];
@@ -94,7 +113,7 @@ function App() {
         <MainContainer>
 
           {/* 봤는 영화 목록 */}
-          <SelectedMovies title='봤는 영화 목록' watchedMv={watchedMv} deleteMovie={deleteMovie}></SelectedMovies>
+          <SelectedMovies title='봤는 영화 목록' movies={watchedMv} deleteMovie={deleteWatchMovie}></SelectedMovies>
 
           {/* 영화목록 */}
           <Main>
@@ -108,7 +127,7 @@ function App() {
           </Main>
 
           {/* 볼 영화 목록 */}
-          <SelectedMovies title='볼 영화 목록'></SelectedMovies>
+          <SelectedMovies title='볼 영화 목록' movies={wishMv} deleteMovie={deletWishMovie}></SelectedMovies>
 
         </MainContainer>
       )

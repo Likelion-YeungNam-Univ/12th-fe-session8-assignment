@@ -9,7 +9,7 @@ function MovieList({title, id, watchedMovie, wishMovie}){
             <p>Description for Movie {id}</p>
 
             <Button onClick={() => {watchedMovie(id)}}>봤는 영화 담기</Button>
-            <Button onClick={() => {wishMovie()}}>볼 영화 담기</Button>
+            <Button onClick={() => {wishMovie(id)}}>볼 영화 담기</Button>
             <hr></hr>
         </MovieContainer>
     )

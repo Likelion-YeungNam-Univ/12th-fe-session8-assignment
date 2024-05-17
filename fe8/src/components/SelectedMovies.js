@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import MovieInfo from './MovieInfo';
 
 
-function SelectedMovies({title, watchedMv=[], deleteMovie}){
+function SelectedMovies({title, movies =[], deleteMovie}){
 
     return(
         <SideContainer>
             <Title>{title}</Title>
-            {console.log(watchedMv)}
+            {console.log(movies)}
 
-            {watchedMv.length === 0 ? (
+            {movies.length === 0 ? (
               <p>목록이 비어있습니다.</p>
             ) :(
-              watchedMv.map((movie)=>
+              movies.map((movie)=>
                 {
                   return(
                     <MovieInfo key={movie.id} id={movie.id} title={movie.title} deleteMovie={deleteMovie}></MovieInfo>
