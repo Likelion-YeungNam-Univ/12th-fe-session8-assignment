@@ -2,13 +2,15 @@ import styled from 'styled-components';
 import MovieInfo from './MovieInfo';
 
 
-function SelectedMovies({title, movies =[], deleteMovie}){
+function SelectedMovies({title, movies, deleteMovie}){
 
     return(
         <SideContainer>
             <Title>{title}</Title>
             {console.log(movies)}
 
+
+            {/* 영화목록 */}
             {movies.length === 0 ? (
               <p>목록이 비어있습니다.</p>
             ) :(
@@ -29,10 +31,8 @@ function SelectedMovies({title, movies =[], deleteMovie}){
 const SideContainer=styled.div`
   flex: 2;
   background-color: #f2f2f2;
-  /* height: 100%; */
   text-align: center;
-  /* overflow-y: scroll; */
-
+  overflow-y: scroll;
 `
 
 const Title=styled.div`
