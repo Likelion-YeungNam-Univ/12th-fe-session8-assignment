@@ -5,8 +5,11 @@ import MovieList from './components/MovieList';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [movies, setMovies] = useState([]);
   const [LoadingState, setLoading] = useState(true);
+
+  const [movies, setMovies] = useState([]);
+  const [watchedMv, setWatchedMv] = useState([]);
+  const [wishMv, setWishMv] = useState([]);
 
 
   const fetchMovies = () => {
@@ -37,11 +40,46 @@ function App() {
     const fetchedMovies = fetchMovies();
     setMovies(fetchedMovies);
 
+    // 봤는 영화 목록 초기화
+    setWatchedMv([]);
+
     // 로딩상태 변경
     setLoading(false);
   },[])
 
-  
+
+
+  // 봤는 영화 담기 함수
+  const watchedMovie = (deleteId) =>{
+      
+      const newMovies = movies.filter(movie => movie.id !== deleteId);
+      const newWatchedMv = movies.filter(movie => movie.id === deleteId);
+
+      setMovies(newMovies);
+      setWatchedMv([...watchedMv, ...newWatchedMv]); // 둘 다 배열이므로 모두 스프레드 연산자 사용
+  }
+
+
+  // 볼 영화 담기 함수
+  const wishMovie = (deleteId)=> {
+    
+  }
+
+  // 삭제 함수
+  const deleteMovie = (deleteId) => {
+
+    // 삭제영화
+    const deleteMovies = watchedMv.filter(watchedMv => watchedMv.id === deleteId);
+    // 봤는 영화목록
+    const newWatchedMv = watchedMv.filter(watchedMv => watchedMv.id !== deleteId);
+
+    setWatchedMv([...newWatchedMv]);
+
+    // 영화목록 업데이트 후 정렬
+    const updateMovies = [...movies, ...deleteMovies];
+    updateMovies.sort((a, b) => a.id - b.id); //a.id < b.id 일때 a가 b보다 먼저 옴
+    setMovies(updateMovies); 
+  }
 
   return (
     <ContentsContainer>
@@ -56,19 +94,18 @@ function App() {
         <MainContainer>
 
           {/* 봤는 영화 목록 */}
-          <SelectedMovies title='봤는 영화 목록'></SelectedMovies>
+          <SelectedMovies title='봤는 영화 목록' watchedMv={watchedMv} deleteMovie={deleteMovie}></SelectedMovies>
 
           {/* 영화목록 */}
           <Main>
               {movies.map((movie)=>
                 {
                   return(
-                    <MovieList id={movie.id} title={movie.title}></MovieList>
+                    <MovieList key={movie.id} id={movie.id} title={movie.title} watchedMovie={watchedMovie} wishMovie={wishMovie}></MovieList>
                   )
                 }
               )}
           </Main>
-          
 
           {/* 볼 영화 목록 */}
           <SelectedMovies title='볼 영화 목록'></SelectedMovies>

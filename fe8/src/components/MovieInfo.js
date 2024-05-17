@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-function MovieInfo(){
+function MovieInfo({title, id, deleteMovie}){
 
     return(
         <MovieList>
             <MovieItem>
-                <MovieTitle>Movie 2</MovieTitle>
-                <Button>삭제</Button>
+                <MovieTitle>{title}</MovieTitle>
+                <Button onClick={() => {deleteMovie(id)}}>삭제</Button>
             </MovieItem>
 
             <hr></hr>
