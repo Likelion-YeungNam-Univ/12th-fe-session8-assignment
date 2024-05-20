@@ -51,9 +51,10 @@ const Center = () => {
   };
 
   const deleteSeen = (id) => {
-    const delete_Seen = movies.filter((el) => el.id !== id);
+    const delete_Seen = seenList.find((el) => el.id === id);
+    const new_Seen = seenList.filter((el) => el.id !== id);
 
-    setSeenList(delete_Seen);
+    setSeenList(new_Seen);
     setMovies((movies) => {
       const new_Movies = [...movies, delete_Seen];
       new_Movies.sort((a, b) => a.id - b.id);
@@ -62,9 +63,10 @@ const Center = () => {
   };
 
   const deleteWish = (id) => {
-    const delete_Wish = movies.filter((el) => el.id !== id);
+    const delete_Wish = wishList.find((el) => el.id === id);
+    const new_Wish = wishList.filter((el) => el.id !== id);
 
-    setWishList(delete_Wish);
+    setWishList(new_Wish);
     setMovies((movies) => {
       const new_Movies = [...movies, delete_Wish];
       new_Movies.sort((a, b) => a.id - b.id);
@@ -80,12 +82,12 @@ const Center = () => {
         <MovieBox>
           <SeenList>
             <h3>봤는 영화 목록</h3>
-            <SpeicalList movieList={seenList} delteMethod={deleteSeen} />
+            <SpeicalList movieList={seenList} deleteMethod={deleteSeen} />
           </SeenList>
           <MovieList movies={movies} addSeen={addSeen} addWish={addWish} />
           <WishList>
             <h3>볼 영화 목록</h3>
-            <SpeicalList movieList={wishList} delteMethod={deleteWish} />
+            <SpeicalList movieList={wishList} deleteMethod={deleteWish} />
           </WishList>
         </MovieBox>
       )}

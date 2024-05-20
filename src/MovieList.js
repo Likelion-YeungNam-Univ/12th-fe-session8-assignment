@@ -2,7 +2,7 @@ import React from "react";
 import MovieListItem from "./MovieListItem";
 import styled from "styled-components";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, addSeen, addWish }) => {
   return (
     <Box>
       {movies.map((el) => {
@@ -12,6 +12,8 @@ const MovieList = ({ movies }) => {
             id={el.id}
             title={el.title}
             description={el.description}
+            addSeen={addSeen}
+            addWish={addWish}
           />
         );
       })}

@@ -6,7 +6,14 @@ const SpecialListItem = ({ id, title, description, deleteMethod }) => {
     <Box>
       <div>{title}</div>
       <div>{description}</div>
-      <button onClick={() => deleteMethod}>삭제</button>
+      <div>{id}</div>
+      <button
+        onClick={() => {
+          deleteMethod(id);
+        }}
+      >
+        삭제
+      </button>
       <hr />
     </Box>
   );
@@ -15,6 +22,7 @@ const SpecialListItem = ({ id, title, description, deleteMethod }) => {
 const Box = styled.div`
   margin: 5px;
   padding: 10px;
+  text-align: center;
 `;
 
 export default SpecialListItem;
