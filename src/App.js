@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      {isLoaded ? <Main movieList={movieList}/> : <Placeholder/>}
+      {isLoaded ? <Main movieList={movieList} setMovieList={setMovieList}/> : <Placeholder/>}
       <Footer/>
     </div>
   );
