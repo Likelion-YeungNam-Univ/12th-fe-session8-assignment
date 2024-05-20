@@ -1,17 +1,18 @@
 import React from "react";
-import MovieListItem from "./MovieListItem";
+import SpecialListItem from "./SpecialLlistItem";
 import styled from "styled-components";
 
-const MovieList = ({ movies }) => {
+const SpeicalList = ({ movieList, delteMethod }) => {
   return (
     <Box>
-      {movies.map((el) => {
+      {movieList.map((el) => {
         return (
-          <MovieListItem
+          <SpecialListItem
             key={el.id}
             id={el.id}
             title={el.title}
             description={el.description}
+            delteMethod={delteMethod}
           />
         );
       })}
@@ -25,4 +26,4 @@ const Box = styled.div`
   overflow-y: scroll;
 `;
 
-export default MovieList;
+export default SpeicalList;

@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import MovieList from "./MovieList";
+import SpeicalList from "./SpeicalList";
 
 const Center = () => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+  const [seenList, setSeenList] = useState([]);
+  const [wishList, setWishList] = useState([]);
 
   const fetchMovies = () => {
     const movies = [];
@@ -31,20 +34,69 @@ const Center = () => {
     setLoading(false);
   }, []);
 
+  const addSeen = (id) => {
+    const new_Seen = movies.find((el) => el.id === id);
+    const new_Movies = movies.filter((el) => el.id !== id);
+
+    setSeenList((seenList) => [...seenList, new_Seen]);
+    setMovies(new_Movies);
+  };
+
+  const addWish = (id) => {
+    const new_Wish = movies.find((el) => el.id === id);
+    const new_Movies = movies.filter((el) => el.id !== id);
+
+    setWishList((wishList) => [...wishList, new_Wish]);
+    setMovies(new_Movies);
+  };
+
+  const deleteSeen = (id) => {
+    const delete_Seen = movies.filter((el) => el.id !== id);
+
+    setSeenList(delete_Seen);
+    setMovies((movies) => {
+      const new_Movies = [...movies, delete_Seen];
+      new_Movies.sort((a, b) => a.id - b.id);
+      return new_Movies;
+    });
+  };
+
+  const deleteWish = (id) => {
+    const delete_Wish = movies.filter((el) => el.id !== id);
+
+    setWishList(delete_Wish);
+    setMovies((movies) => {
+      const new_Movies = [...movies, delete_Wish];
+      new_Movies.sort((a, b) => a.id - b.id);
+      return new_Movies;
+    });
+  };
+
   return (
     <Box>
       {loading === true ? (
         <Loading>Loading...</Loading>
       ) : (
-        <MovieList movies={movies}></MovieList>
+        <MovieBox>
+          <SeenList>
+            <h3>봤는 영화 목록</h3>
+            <SpeicalList movieList={seenList} delteMethod={deleteSeen} />
+          </SeenList>
+          <MovieList movies={movies} addSeen={addSeen} addWish={addWish} />
+          <WishList>
+            <h3>볼 영화 목록</h3>
+            <SpeicalList movieList={wishList} delteMethod={deleteWish} />
+          </WishList>
+        </MovieBox>
       )}
     </Box>
   );
 };
 
 const Box = styled.div`
-  height: 80%;
+  height: 60%;
   display: flex;
+  justify-content: center;
 `;
 
 const Loading = styled.h1`
@@ -54,6 +106,21 @@ const Loading = styled.h1`
   justify-content: center;
   align-items: center;
   margin: 0px;
+`;
+
+const MovieBox = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const SeenList = styled.div`
+  width: 25%;
+  text-align: center;
+`;
+
+const WishList = styled.div`
+  width: 25%;
+  text-align: center;
 `;
 
 export default Center;
