@@ -24,16 +24,17 @@ const Button = styled.button`
   width: 80px;
   height: 20px;
 `;
-function WatchMovieList({ movies }) {
+
+function WatchMovieList({ movies, deleteMovieItem }) {
   return (
     <ListContainer>
-        {/* MainContent에서 각각 toWatchMovies, watchedMovies 전달받음 */}
-        {/* 좌측 '봤는 영화목록' ,우측 '볼 영화목록' 작성로직 */}
+      {/* MainContent에서 각각 toWatchMovies, watchedMovies 전달받음 */}
+      {/* 좌측 '봤는 영화목록' ,우측 '볼 영화목록' 작성로직 */}
       {movies.map((movie) => (
         <MovieItem key={movie.id}>
           <SubContainer>
             <span>Movie {movie.id}</span>
-            <Button>삭제</Button>
+            <Button onClick={() => deleteMovieItem(movie)}>삭제</Button>
           </SubContainer>
           <hr style={{ width: "100%" }} />
         </MovieItem>

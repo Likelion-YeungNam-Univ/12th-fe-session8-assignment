@@ -33,7 +33,6 @@ function MainContent() {
   const [watchedMovies, setWatchedMovies] = useState([]);
   const [toWatchMovies, setToWatchMovies] = useState([]);
 
-
   useEffect(() => {
     setMovies(fetchMovies());
   }, []);
@@ -55,17 +54,28 @@ function MainContent() {
     setWatchedMovies([...watchedMovies, movie]);
     setMovies((prev) => prev.filter((m) => m.id !== movie.id));
   };
-   //볼영화담기 state업뎃
+  //볼영화담기 state업뎃
   const addToToWatch = (movie) => {
     setToWatchMovies([...toWatchMovies, movie]);
     setMovies((prev) => prev.filter((m) => m.id !== movie.id));
+  };
+
+  //삭제기능함수
+  const deleteMovieItem = (movie) => {
+    setMovies((prev) => [...prev, movie].sort((a, b) => a.id - b.id));
+    setToWatchMovies((prev) => prev.filter((m) => m.id !== movie.id));
+    setWatchedMovies((prev) => prev.filter((m) => m.id !== movie.id));
   };
 
   return (
     <Container>
       <WatchedWatchMovie>
         <h2>봤는 영화 목록</h2>
-        <WatchMovieList movies={watchedMovies} />
+        <WatchMovieList
+        // 봤는 영화목록에는 movies의 값으로 watchedMovies전달
+          movies={watchedMovies}
+          deleteMovieItem={deleteMovieItem}
+        />
       </WatchedWatchMovie>
       <MovieListContainer>
         {/* 함수와 배열 props전달 */}
@@ -77,7 +87,11 @@ function MainContent() {
       </MovieListContainer>
       <WatchedWatchMovie>
         <h2>볼 영화 목록</h2>
-        <WatchMovieList movies={toWatchMovies} />
+        <WatchMovieList
+        // 봤는 영화목록에는 movies의 값으로 toWatchMovies전달
+          movies={toWatchMovies}
+          deleteMovieItem={deleteMovieItem}
+        />
       </WatchedWatchMovie>
     </Container>
   );
