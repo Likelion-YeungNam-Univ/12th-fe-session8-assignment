@@ -1,13 +1,18 @@
 import React from "react";
 import styled from 'styled-components';
 
-function WatchedMvList({title, id, deleteMv}){
+
+function WatchedMvList({title, id, deleteWatchedMv}){
     return(
-        <div>
+        <box>
             <p>{title}</p>
-            <button onClick={()=>{deleteMv(id)}}>삭제</button>
-        </div>
+            <button onClick={()=>{deleteWatchedMv(id)}}>삭제</button>
+        </box>
     );
 }
 
+
+const box = styled.div`
+
+`;
 export default WatchedMvList;
