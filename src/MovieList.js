@@ -9,5 +9,5 @@ function MovieList(title, description, watchedMovie, willMovie) {
         </div>
     </li>
 }
-d
+
 export default MovieList;

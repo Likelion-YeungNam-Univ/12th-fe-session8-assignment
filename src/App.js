@@ -1,7 +1,7 @@
 import "./App.css"
 import { useEffect, useState } from "react";
 import MovieList from "./MovieList";
-d
+
 
 function App() {
   const [Loading, setLoading] = useState(true);
