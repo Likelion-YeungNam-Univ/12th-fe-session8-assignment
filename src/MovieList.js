@@ -11,3 +11,4 @@ function MovieList(title, description, watchedMovie, willMovie) {
 }
 
 export default MovieList;
+// test
