@@ -31,8 +31,8 @@ function App() {
 
   useEffect(()=>{
     setLoading(true);
-    const movies = fetchMovies();
-    setMovies(movies);
+    const Mvlist = fetchMovies();
+    setMovies(Mvlist);
     setLoading(false);
   },[]);
 
