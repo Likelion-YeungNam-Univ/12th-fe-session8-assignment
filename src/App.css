@@ -1,0 +1,12 @@
+.header,.footer{
+    color: white;
+    background-color: black;
+    padding: 10px;
+}
+
+.list{
+    background-color: lightgray;
+    width: 300px;
+    height: 700px;
+}
+/* test */
