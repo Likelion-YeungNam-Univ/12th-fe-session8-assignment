@@ -95,7 +95,9 @@ function App() {
         <h2>Loading...</h2>
       ):(
       movies.map((movie)=>{
-        <MovieList title={movie.title} description={movie.description} watchedMovie={watchedMv} willMovie={willMv}></MovieList>
+        return(
+          <MovieList title={movie.title} description={movie.description} watchedMovie={watchedMv} willMovie={willMv}></MovieList>
+        )
       })
       )}
             
